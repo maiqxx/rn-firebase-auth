@@ -1,3 +1,4 @@
+
 import {View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
@@ -14,8 +15,8 @@ const Registration = () => {
     const [password, setPassword] = useState('');
     // const [confirmPassword, setConfirmPassword] = useState('');
     
-    registerUser = async(email, password, firstName, lastName) => {
-        await firebase.auth().createUserWithEmailAndPassword(email, password)
+    registerUser = async(email, password, firstName, lastName, mobile, address) => {
+        await firebase.auth().createUserWithEmailAndPassword(email.trim(), password)
         .then(() => {
             firebase.auth().currentUser.sendEmailVerification({
                 handleCodeInApp: true,
@@ -28,11 +29,11 @@ const Registration = () => {
                 firebase.firestore().collection('users')
                 .doc(firebase.auth().currentUser.uid)
                 .set({
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    mobile: mobile,
-                    address: address,
+                    firstName,
+                    lastName,
+                    email,
+                    mobile,
+                    address,
                 })
             }).catch((error) => {
                 alert(error.message)
@@ -44,37 +45,41 @@ const Registration = () => {
         }
         
         return(
+ 
             <View style={styles.container}>
-                <Text style={{fontWeight: 'bold', fontSize: 23}}>
-                    Registration
-                </Text>
+                <View>
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="First Name"
+                            onChangeText={(firstName) => setFirstName(firstName)}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                        />
+                    </View>
 
-                <View style={{marginTop: 40}}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="First Name"
-                        onChangeText={(firstName) => setFirstName(firstName)}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                    />
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Last Name"
+                            onChangeText={(lastName) => setLastName(lastName)}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                        />
+                    </View>
+                
+                    <View style={styles.inputWrapper}>
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Email"
+                            onChangeText={(email) => setEmail(email)}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            keyboardType="email-address"
+                        />
+                    </View>
 
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Last Name"
-                        onChangeText={(lastName) => setLastName(lastName)}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                    />
-
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Email"
-                        onChangeText={(email) => setEmail(email)}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        keyboardType="email-address"
-                    />
-                    
+                    <View style={styles.inputWrapper}>
                     <TextInput
                         style={styles.textInput}
                         placeholder="Mobile No."
@@ -83,7 +88,9 @@ const Registration = () => {
                         autoCorrect={false}
                         keyboardType="phone-pad"
                     />
+                    </View>
 
+                    <View style={styles.inputWrapper}>
                     <TextInput
                     style={styles.textInput}
                     placeholder="Address"
@@ -91,7 +98,9 @@ const Registration = () => {
                     autoCapitalize="none"
                     autoCorrect={false}
                     />
+                    </View>
 
+                    <View style={styles.inputWrapper}>
                     <TextInput
                         style={styles.textInput}
                         placeholder="Password"
@@ -100,15 +109,17 @@ const Registration = () => {
                         autoCorrect={false}
                         secureTextEntry={true}
                     />
+                    </View>
 
                     <TouchableOpacity
-                        onPress={() => registerUser(email, password, firstName, lastName)}
+                        onPress={() => registerUser(email, password, firstName, lastName, mobile, address)}
                         style={styles.button}
                     >
                         <Text style={{fontWeight:'bold', fontSize: 18}}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+
         )
   
 
@@ -120,11 +131,10 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: 40,
     },
     textInput:{
         width: 280,
-        marginBottom: 10,
         borderColor: '#16213E',
         borderWidth: 1,
         borderRadius: 10,
@@ -149,7 +159,13 @@ const styles = StyleSheet.create({
         marginTop: 30,
         borderRadius: 50,
         // backgroundColor: '#f4511e',
-        
-        
-    }
+    },
+    errorTxt:{
+        fontSize: 12,
+        color:'#FF0D10',
+    },
+    inputWrapper:{
+        marginBottom: 15,
+    },
+
 })

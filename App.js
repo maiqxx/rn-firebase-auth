@@ -46,7 +46,7 @@ function App() {
 
         <Stack.Screen name="Registration" component={Registration}
           options={{
-            headerTitle: () => <Header name="Sign Up" />,
+            headerTitle: () => <Header name="Register Here" />,
             headerStyle: {
               height: 100,
               borderBottomLeftRadius: 50,
