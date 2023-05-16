@@ -20,7 +20,7 @@ const Dashboard = () => {
 
     return(
         <SafeAreaView style={StyleSheet.container}>
-            <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15,}}>
                 Hello, {name.firstName}!
             </Text>
 
