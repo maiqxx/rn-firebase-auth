@@ -2,9 +2,11 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {firebase} from '../config';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 const Dashboard = () => {
     const [name, setName] = useState('');
+    const navigation = useNavigation();
 
     useEffect(() => {
         firebase.firestore().collection('users')
@@ -26,7 +28,7 @@ const Dashboard = () => {
 
 
             <TouchableOpacity
-                onPresss={() => navigation.navigate('ToDoList')}
+                onPress={() => navigation.navigate('ToDoList')}
                 style={styles.button}
         >
             <Text style={{color: 'black', fontSize: 18, fontWeight: 600, }}>
@@ -35,7 +37,7 @@ const Dashboard = () => {
         </TouchableOpacity>
 
             <TouchableOpacity
-                onPresss={() => {firebase.auth().signOut()}}
+                onPress={() => {firebase.auth().signOut()}}
                 style={styles.btnLogOut}
             >
                 <Text style={{color: 'red',}}>

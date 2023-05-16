@@ -62,6 +62,7 @@ const SignupSchema = Yup.object().shape({
 
 const Registration = () => {
 
+    //can remove these unused hooks to clean up the code
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [address, setAddress] = useState('');
