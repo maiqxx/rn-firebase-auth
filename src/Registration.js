@@ -229,7 +229,7 @@ const Registration = () => {
                         )}
                         style={styles.button}
                     >
-                        <Text style={{fontWeight:'bold', fontSize: 18}}>Sign Up</Text>
+                        <Text style={{fontWeight:'bold', fontSize: 18, color:'#fff'}}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
             </View>

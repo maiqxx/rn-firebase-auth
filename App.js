@@ -7,6 +7,7 @@ import Login from './src/Login';
 import Dashboard from './src/Dashboard';
 import Registration from './src/Registration';
 import Header from "./components/Header";
+import Update from "./src/Update";
 
 const Stack = createStackNavigator();
 
@@ -74,9 +75,25 @@ function App() {
             backgroundColor: '#788eec',
             shadowColor: '#000',
             elevation: 25,
-          }
+          },
+          
         }}
       />
+
+      <Stack.Screen name="Update" component={Update}
+      options={{
+        headerTitle: () => <Header name="Update Task" />,
+        headerStyle: {
+          height: 100,
+          borderBottomLeftRadius: 50,
+          borderBottomRightRadius: 50,
+          backgroundColor: '#788eec',
+          shadowColor: '#000',
+          elevation: 25,
+        },
+        
+      }}
+    />
     </Stack.Navigator>
 
   );

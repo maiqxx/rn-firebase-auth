@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { firebase } from '../config';
 import { useNavigation } from '@react-navigation/native';
 
-const Details = ({route}) => {
+const Update = ({route}) => {
     const todoRef = firebase.firestore().collection('todos');
     const [textHeading, onChangeText] = useState(route.params.item.name);
     const navigation = useNavigation();
@@ -16,7 +16,7 @@ const Details = ({route}) => {
             .update({
                 heading: textHeading,
             }).then (() => {
-                navigation.navigate('Home')
+                navigation.navigate('Dashboard')
             }).catch((error) => {
                 alert(error.message)
             })
@@ -64,7 +64,7 @@ const Details = ({route}) => {
 
 }
 
-export default Details;
+export default Update;
 
 const styles = StyleSheet.create({
     container: {

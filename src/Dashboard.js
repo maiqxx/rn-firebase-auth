@@ -81,10 +81,21 @@ const Dashboard = () => {
 
     return(
         <View style={{flex: 1}}>
-            <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15, marginTop: 20}}>
-                Hello, {name.firstName}!
-            </Text>
+            <View style={styles.signedInContainer}>
+                <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15, marginTop: 20}}>
+                    Hello, {name.firstName}!
+                </Text>
 
+                <TouchableOpacity
+                onPress={() => {firebase.auth().signOut()}}
+                style={styles.btnLogOut}
+            >
+                <Text style={{color: 'red',}}>
+                    Log Out
+                </Text>
+            </TouchableOpacity>
+            </View>
+            
             <View style={styles.formContainer}>
                 <TextInput
                     style={styles.input}
@@ -106,7 +117,7 @@ const Dashboard = () => {
                     <View>
                         <Pressable
                             style={styles.container}
-                            onPress={() => navigation.navigate('Details', {item})}
+                            onPress={() => navigation.navigate('Update', {item})}
                         >
                             <View style={styles.innerContainer}>
                                 <Text style={styles.itemHeading}>{item.heading[0].toUpperCase() + item.heading.slice(1)}</Text>
@@ -125,17 +136,6 @@ const Dashboard = () => {
                     </View>
                 )}
             />
-        
-            <TouchableOpacity
-                onPress={() => {firebase.auth().signOut()}}
-                style={styles.btnLogOut}
-            >
-                <Text style={{color: 'red',}}>
-                    Log Out
-                </Text>
-            </TouchableOpacity>
-            
-
 
         </View>
     )
@@ -181,14 +181,13 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: 'lightgray',
-        alignSelf: 'center',
-        width: 250,
+        alignSelf: 'center',  
         alignItems: 'center',
         justifyContent: 'center',
         height: 50, 
         marginTop: 30,
         borderRadius: 50,
+        marginRight: 15,
         // backgroundColor: '#f4511e',
     },
     innerContainer: {
@@ -209,7 +208,7 @@ const styles = StyleSheet.create({
         height: 80,
         marginLeft: 10,
         marginRight: 10,
-        marginTop: 40,
+        marginTop: 10,
     },
     input: {
         height: 48,
@@ -219,6 +218,11 @@ const styles = StyleSheet.create({
         paddingLeft: 16,
         flex: 1,
         marginRight: 5,
+    },
+    signedInContainer: {   
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: "space-between",
     },
 
 
