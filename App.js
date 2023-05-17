@@ -66,7 +66,7 @@ function App() {
     <Stack.Navigator>
       <Stack.Screen name="Dashboard" component={Dashboard}
         options={{
-          headerTitle: () => <Header name="Dashboard" />,
+          headerTitle: () => <Header name="To-Do List" />,
           headerStyle: {
             height: 100,
             borderBottomLeftRadius: 50,

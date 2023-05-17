@@ -2,7 +2,7 @@
 
 
 
-import {View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -78,9 +78,9 @@ const Registration = () => {
                 handleCodeInApp: true,
                 url:'https://test-projects-73e32.firebaseapp.com',
             }).then(() => {
-                alert('Please check your email inbox or spam for verification')
+                Alert.alert('Please check your email inbox or spam for verification')
             }).catch((error) => {
-                alert(error.message)
+                Alert.alert(error.message)
                 console.log("First catch " + error.message)
             }).then(() => {
                 firebase.firestore().collection('users')
@@ -93,12 +93,12 @@ const Registration = () => {
                     address,
                 })
             }).catch((error) => {
-                alert(error.message)
+                Alert.alert(error.message)
                 console.log("Second catch " + error.message)
                 })
             })
             .catch((error) => {
-                alert(error.message);
+                Alert.alert(error.message);
                 console.log("Third catch " + error.message)
             })
         }
@@ -182,24 +182,24 @@ const Registration = () => {
                         keyboardType="phone-pad"
                         onBlur={() => setFieldTouched('mobile')}
                     />
-                    {touched.mobile && errors.mobile && (
-                        <Text style={styles.errorTxt}>{errors.mobile}</Text>
-                    )}
+                        {touched.mobile && errors.mobile && (
+                            <Text style={styles.errorTxt}>{errors.mobile}</Text>
+                        )}
                     </View>
 
                     <View style={styles.inputWrapper}>
-                    <TextInput
-                    style={styles.textInput}
-                    placeholder="Address"
-                    value={values.address}
-                    onChangeText={handleChange('address')}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    onBlur={() => setFieldTouched('address')}
-                    />
-                    {touched.address && errors.address && (
-                        <Text style={styles.errorTxt}>{errors.address}</Text>
-                    )}
+                        <TextInput
+                        style={styles.textInput}
+                        placeholder="Address"
+                        value={values.address}
+                        onChangeText={handleChange('address')}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onBlur={() => setFieldTouched('address')}
+                        />
+                        {touched.address && errors.address && (
+                            <Text style={styles.errorTxt}>{errors.address}</Text>
+                        )}
                     </View>
 
                     <View style={styles.inputWrapper}>
