@@ -1,7 +1,5 @@
 //Registration
 
-
-
 import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
@@ -33,7 +31,7 @@ const SignupSchema = Yup.object().shape({
         /^[a-zA-Z ]+$/,
         'Only alphabets are allowed for this field.'
       )
-      .required('Please enter your last name'),
+      .required('Please enter your address'),
     mobile: Yup.string()
       .min(11, 'Must be 11 digits')
       .max(11, 'Must be 11 digits')
@@ -70,38 +68,86 @@ const Registration = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     // const [confirmPassword, setConfirmPassword] = useState('');
-    
-    registerUser = async(email, password, firstName, lastName, address, mobile) => {
-        await firebase.auth().createUserWithEmailAndPassword(email.trim(), password)
-        .then(() => {
-            firebase.auth().currentUser.sendEmailVerification({
-                handleCodeInApp: true,
-                url:'https://test-projects-73e32.firebaseapp.com',
-            }).then(() => {
-                Alert.alert('Please check your email inbox or spam for verification')
-            }).catch((error) => {
-                Alert.alert(error.message)
-                console.log("First catch " + error.message)
-            }).then(() => {
-                firebase.firestore().collection('users')
-                .doc(firebase.auth().currentUser.uid)
-                .set({
-                    firstName,
-                    lastName,
-                    email,
-                    mobile,
-                    address,
-                })
-            }).catch((error) => {
-                Alert.alert(error.message)
-                console.log("Second catch " + error.message)
-                })
-            })
-            .catch((error) => {
-                Alert.alert(error.message);
-                console.log("Third catch " + error.message)
-            })
+
+    const resetFormFields = () => {
+        setFirstName('');
+        setLastName('');
+        setAddress('');
+        setMobile('');
+        setEmail('');
+        setPassword('');
+      };
+
+    registerUser = async (email, password, firstName, lastName, address, mobile) => {
+        const userRef = firebase.firestore().collection('users');
+      
+        // Check if user already exists
+        const userSnapshot = await userRef.where('email', '==', email).get();
+        if (!userSnapshot.empty) {
+          Alert.alert('User is already registered!');
+            // Clear the form fields
+            resetFormFields();
+          return;
         }
+      
+        try {
+          await firebase.auth().createUserWithEmailAndPassword(email.trim(), password);
+          await firebase.auth().currentUser.sendEmailVerification({
+            handleCodeInApp: true,
+            url: 'https://test-projects-73e32.firebaseapp.com',
+          });
+      
+          await userRef.doc(firebase.auth().currentUser.uid).set({
+            firstName,
+            lastName,
+            email,
+            mobile,
+            address,
+          });
+      
+          Alert.alert('Registration successful! Please check your email inbox or spam for verification');
+        } catch (error) {
+          Alert.alert(error.message);
+          console.log('Registration error: ', error);
+        }
+      };
+      
+    
+    // registerUser = async(email, password, firstName, lastName, address, mobile) => {
+    //     await firebase.auth().createUserWithEmailAndPassword(email.trim(), password)
+    //     .then(() => {
+    //         firebase.auth().currentUser.sendEmailVerification({
+    //             handleCodeInApp: true,
+    //             url:'https://test-projects-73e32.firebaseapp.com',
+    //         }).then(() => {
+    //             Alert.alert('Please check your email inbox or spam for verification')
+    //         }).catch((error) => {
+    //             Alert.alert(error.message)
+    //             console.log("First catch " + error.message)
+    //         }).then(() => {
+    //             firebase.firestore().collection('users')
+    //             .doc(firebase.auth().currentUser.uid)
+    //             .set({
+    //                 firstName,
+    //                 lastName,
+    //                 email,
+    //                 mobile,
+    //                 address,
+    //             })
+    //         }).catch((error) => {
+    //             Alert.alert(error.message)
+    //             console.log("Second catch " + error.message)
+    //             })
+    //         })
+    //         .catch((error) => {
+    //             Alert.alert(error.message);
+    //             console.log("Third catch " + error.message)
+    //         })
+    //     }
+
+
+
+        
         
         return(
             <Formik initialValues={{

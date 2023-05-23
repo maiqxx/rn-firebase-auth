@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, FlatList, Keyboard} from 'react-native';
+import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, FlatList, Keyboard} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {firebase} from '../config';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -44,19 +44,56 @@ const Dashboard = () => {
             )
         }, [])
         
+        const handleDelete = () => {
+            Alert.alert(
+              'Delete Item',
+              `Are you sure you want to delete this task?`,
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+                {
+                  text: 'Delete',
+                  onPress: () => deleteTodo(todos),
+                  style: 'destructive',
+                },
+              ],
+              { cancelable: false }
+            );
+          };
     
         //delete a todo
         const deleteTodo = (todos) => {
-            todoRef
+            const handleDelete = () => {
+              todoRef
                 .doc(todos.id)
                 .delete()
                 .then(() => {
-                    alert('Task deleted!')
+                  Alert.alert('Task deleted!');
                 })
-                .catch(error => {
-                    alert(error)
+                .catch((error) => {
+                  Alert.alert(error.message);
                 });
-        }
+            };
+          
+            Alert.alert(
+              'Delete Task',
+              'Are you sure you want to delete this task?',
+              [
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
+                },
+                {
+                  text: 'Delete',
+                  style: 'destructive',
+                  onPress: handleDelete,
+                },
+              ],
+              { cancelable: false }
+            );
+          };
     
         //add a todo
         const addTodo = () => {
