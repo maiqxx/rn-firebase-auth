@@ -11,6 +11,15 @@ const Dashboard = () => {
     const [todos, setTodos] = useState([]);
     const todoRef = firebase.firestore().collection('todos'); 
     const [addData, setAddData] = useState(''); 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+    const handleSearch = () => {
+        const filteredTodos = todos.filter((todo) =>
+          todo.heading.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setSearchResults(filteredTodos);
+      };
 
     useEffect(() => {
         firebase.firestore().collection('users')
@@ -118,6 +127,20 @@ const Dashboard = () => {
 
     return(
         <View style={{flex: 1}}>
+            <View style={styles.formContainer}>
+                <TextInput
+                style={styles.input}
+                placeholder="Search task"
+                placeholderTextColor="#aaaaaa"
+                onChangeText={setSearchQuery}
+                value={searchQuery}
+                clearButtonMode="always"
+                />
+                    <TouchableOpacity style={styles.button} onPress={handleSearch}>
+                    <Text style={styles.buttonText}>Search</Text>
+                    </TouchableOpacity>
+            </View>
+      
             <View style={styles.signedInContainer}>
                 <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15, marginTop: 20}}>
                     Hello, {name.firstName}!
@@ -148,7 +171,7 @@ const Dashboard = () => {
             </View>
 
             <FlatList
-                data={todos}
+                data={searchResults.length > 0 ? searchResults : todos}
                 numColumns={1}
                 renderItem={({item}) => (
                     <View>
