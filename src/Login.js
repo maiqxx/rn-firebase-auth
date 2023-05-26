@@ -40,20 +40,20 @@ const Login = () => {
                     secureTextEntry={true}
                 />
             </View>
-            <TouchableOpacity
-                onPress={() => loginuser(email, password)}
-                stye={styles.button}
-            >
-                <Text style={{fontWeight:'bold', fontSize:22}}>Log In</Text>
+
+            <TouchableOpacity style={styles.button} onPress={() => loginuser(email, password)}>
+                <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
                 onPress={() => navigation.navigate('Registration')}
                 style={{marginTop: 20}}
             >
-                <Text style={{fontWeight:'bold', fontSize:16}}>
+                <Text style={{fontSize:16, color: 'blue'}}>
                     Don't have an account? Register Here
                 </Text>
             </TouchableOpacity>
+            
         </View>
     )
 }
@@ -82,16 +82,19 @@ const styles = StyleSheet.create({
     },
     button:{
         padding: 10,
-        borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: '#395B64',
-        width: 250,
-        // marginTop: 50,
-        // height: 70, 
+        backgroundColor: '#788eec',
+        width: 200,
+        marginTop: 40,
+        borderRadius: 50,
+        height: 50, 
         // backgroundColor: '#f4511e',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // borderRadius: 50,
-        
-    }
+        alignItems: 'center',    
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+
 })
