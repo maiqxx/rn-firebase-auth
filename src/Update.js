@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Pressable, } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Alert} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { firebase } from '../config';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,7 @@ const Update = ({route}) => {
             .update({
                 heading: textHeading,
             }).then (() => {
+                Alert.alert('Task updated!');
                 navigation.navigate('Dashboard')
             }).catch((error) => {
                 alert(error.message)
