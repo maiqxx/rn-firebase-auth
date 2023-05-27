@@ -4,6 +4,7 @@ import {firebase} from '../config';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import {FontAwesome } from '@expo/vector-icons'; 
+import { debounce } from 'lodash';
 
 const Dashboard = () => {
     const [name, setName] = useState('');
@@ -16,18 +17,44 @@ const Dashboard = () => {
     const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
     const [showAllTodos, setShowAllTodos] = useState(true);
 
+    //this is for searching
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
             setShowAllTodos(true);
-          } else {
+        } else {
             const filteredTodos = todos.filter((todo) =>
               todo.heading.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
             );
             setSearchResults(filteredTodos);
             setShowAllTodos(false);
-          }
-      };
+        }
+    };
 
+    //this is for debouncing the search bar
+    useEffect(() => {
+        const delay = 300; // Adjust the delay as needed
+        const debounceSearchQuery = debounce(() => {
+          setDebouncedSearchQuery(searchQuery);
+        }, delay);
+      
+        debounceSearchQuery();
+      
+        return () => {
+          debounceSearchQuery.cancel();
+        };
+      }, [searchQuery]);
+
+
+    //this is for clearing the search bar
+    //might not need this
+    const handleClear = () => {
+        setSearchQuery('');
+        setDebouncedSearchQuery('');
+        setShowAllTodos(true);
+    };
+      
+
+    //fetch or read the data from firestore
     useEffect(() => {
         firebase.firestore().collection('users')
         .doc(firebase.auth().currentUser.uid).get()
@@ -40,7 +67,7 @@ const Dashboard = () => {
         })
     }, [])
 
-    //fetch or read the data from firestore
+    //fetch or read the tasks from firestore
     useEffect(() => {
             todoRef
             .orderBy('createdAt', 'desc')
@@ -60,6 +87,8 @@ const Dashboard = () => {
             )
         }, [])
         
+        //delete a todo
+        //might not need this
         const handleDelete = () => {
             Alert.alert(
               'Delete Item',
@@ -186,7 +215,7 @@ const Dashboard = () => {
             </View>
 
             <FlatList
-                data={searchResults.length > 0 ? searchResults : todos}
+                data={searchQuery.trim() === '' ? todos : searchResults}
                 numColumns={1}
                 renderItem={({item}) => (
                     <View>
