@@ -13,12 +13,19 @@ const Dashboard = () => {
     const [addData, setAddData] = useState(''); 
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+    const [showAllTodos, setShowAllTodos] = useState(true);
 
     const handleSearch = () => {
-        const filteredTodos = todos.filter((todo) =>
-          todo.heading.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setSearchResults(filteredTodos);
+        if (searchQuery.trim() === '') {
+            setShowAllTodos(true);
+          } else {
+            const filteredTodos = todos.filter((todo) =>
+              todo.heading.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
+            );
+            setSearchResults(filteredTodos);
+            setShowAllTodos(false);
+          }
       };
 
     useEffect(() => {
