@@ -136,24 +136,32 @@ const Dashboard = () => {
                 value={searchQuery}
                 clearButtonMode="always"
                 />
-                    <TouchableOpacity style={styles.button} onPress={handleSearch}>
-                    <Text style={styles.buttonText}>Search</Text>
-                    </TouchableOpacity>
+
+
+                <Pressable onPress={() => setSearchQuery('')}>
+                    <FontAwesome
+                        name="search"
+                        size={30}
+                        color="black"
+                        onPress={handleSearch}
+                        style={styles.search}
+                    />
+                </Pressable>
             </View>
       
             <View style={styles.signedInContainer}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15, marginTop: 20}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15}}>
                     Hello, {name.firstName}!
                 </Text>
 
                 <TouchableOpacity
                 onPress={() => {firebase.auth().signOut()}}
-                style={styles.btnLogOut}
-            >
-                <Text style={{color: 'red',}}>
-                    Log Out
-                </Text>
-            </TouchableOpacity>
+                style={styles.btnLogOut}>
+
+                    <Text style={{color: 'red',}}>
+                        Log Out
+                    </Text>
+                </TouchableOpacity>
             </View>
             
             <View style={styles.formContainer}>
@@ -236,7 +244,10 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginRight: 15,
     },
-
+    search: {
+        marginTop: 8,
+        paddingLeft: 3,
+    },
     btnLogOut:{
         padding: 10,
         borderRadius: 10,
@@ -245,7 +256,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 50, 
-        marginTop: 30,
         borderRadius: 50,
         marginRight: 15,
         // backgroundColor: '#f4511e',
@@ -269,6 +279,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
+        justifyContent: 'space-between',
     },
     input: {
         height: 48,
