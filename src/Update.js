@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { firebase } from '../config';
 import { useNavigation } from '@react-navigation/native';
@@ -23,25 +23,42 @@ const Update = ({route}) => {
         }
     }
 
+    useEffect(() => {
+        todoRef
+          .doc(route.params.item.id)
+          .get()
+          .then((snapshot) => {
+            if (snapshot.exists) {
+              const { heading } = snapshot.data();
+              onChangeText(heading);
+            } else {
+              console.log('Todo does not exist!');
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }, []);
+
         //fetch or read the data from firestore
-        useEffect(() => {
-            todoRef
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(
-                querySnapshot => {
-                    const todos = []
-                    querySnapshot.forEach(doc => {   
-                        const {heading} = doc.data()
-                        todos.push({
-                            id: doc.id,
-                            heading,
-                        })
+        // useEffect(() => {
+        //     todoRef
+        //     .orderBy('createdAt', 'desc')
+        //     .onSnapshot(
+        //         querySnapshot => {
+        //             const todos = []
+        //             querySnapshot.forEach(doc => {   
+        //                 const {heading} = doc.data()
+        //                 todos.push({
+        //                     id: doc.id,
+        //                     heading,
+        //                 })
                         
-                    })
-                    setTodos(todos)
-                }    
-            )
-        }, [])
+        //             })
+        //             setTodos(todos)
+        //         }    
+        //     )
+        // }, [])
 
 
     return(
@@ -50,6 +67,8 @@ const Update = ({route}) => {
                 style={styles.textField}
                 onChangeText={onChangeText}
                 value={textHeading}
+                multiline={true}
+                numberOfLines={5}
                 placeholder="Edit task"
             />
 
@@ -81,6 +100,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: 350,
         alignSelf: 'center',
+        textAlignVertical: 'top',
     },
     buttonUpdate:{
         marginTop: 25,
