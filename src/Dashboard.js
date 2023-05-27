@@ -297,17 +297,13 @@ const styles = StyleSheet.create({
         // backgroundColor: '#f4511e',
     },
     innerContainer: {
-        alignItems: 'center',
-        flexDirection: 'column',
-        marginLeft: 10,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        padding: 16,
+        flex: 1,
+        padding: 15,
     },
     itemHeading:{
         fontWeight: 'bold',
         fontSize: 18,
+        flexWrap: 'wrap',
     },
     formContainer: {
         flexDirection: 'row',
