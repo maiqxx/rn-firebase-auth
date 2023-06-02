@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TouchableOpacity, TextInput, } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, TextInput, Image, KeyboardAvoidingView} from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../config';
@@ -18,12 +18,13 @@ const Login = () => {
     }
 
     return(
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior='padding'>
+        <Image source={require('../assets/log-in.png')} style={styles.loginImg}/>
             <Text style={{fontWeight: 'bold', fontSize: 26}}>
                 Log In
             </Text>
 
-            <View style={{marginTop:40}}>
+            <View style={{marginTop:20}}>
                 <TextInput
                     style={styles.textInput}
                     placeholder="Email"
@@ -45,16 +46,21 @@ const Login = () => {
                 <Text style={styles.buttonText}>Log In</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Registration')}
-                style={{marginTop: 20}}
-            >
-                <Text style={{fontSize:16, color: 'blue'}}>
-                    Don't have an account? Register Here
+            <View style={styles.txtContainer}>
+                <Text style={{fontSize:16, color: 'black', marginTop:20}}>
+                    Don't have an account? 
                 </Text>
-            </TouchableOpacity>
-            
-        </View>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Registration')}
+                    style={{marginTop: 20}}
+                >
+                    <Text style={{fontSize:16, color: 'blue'}}>
+                        Register Here
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: 'center',
-        marginTop: 100,
+        backgroundColor: '#fff',
     },
     textInput:{
         width: 280,
@@ -73,19 +79,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        // paddingTop: 20,
-        // paddingBottom: 10,
-        // textAlign: 'center',
-        // fontSize: 20,
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#000',
     },
     button:{
         padding: 10,
         justifyContent: 'center',
         backgroundColor: '#788eec',
         width: 200,
-        marginTop: 40,
+        marginTop: 20,
         borderRadius: 50,
         height: 50, 
         // backgroundColor: '#f4511e',
@@ -95,6 +95,15 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    loginImg:{
+        width: 200,
+        height: 200,
+    },
+    txtContainer:{
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 
 })

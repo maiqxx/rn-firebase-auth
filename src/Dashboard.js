@@ -1,4 +1,4 @@
-import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, FlatList, Keyboard} from 'react-native';
+import {Alert, KeyboardAvoidingView, View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, FlatList, Keyboard} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {firebase} from '../config';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -234,13 +234,9 @@ const Dashboard = () => {
                                 style={styles.todoIcon}
                             />
                         </Pressable>
-                    
-                        
-
                     </View>
                 )}
             />
-
         </View>
     )
 }
@@ -327,6 +323,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "space-between",
     },
+    inputTask:{
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        backgroundColor: '#FFF',
+        borderRadius: 60,
+        borderColor: '#C0C0C0',
+        borderWidth: 1,
+        width: 250,
+    },
+    writeTaskWrapper:{
+        position: 'absolute',
+        bottom: 60,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    addWrapper:{
+        width: 60,
+        height: 60,
+        backgroundColor: '#FFF',
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#C0C0C0',
+        borderWidth: 1,
+    },
+    addText:{},
+
+    
 
 
 })

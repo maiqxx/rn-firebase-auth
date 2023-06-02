@@ -1,6 +1,6 @@
 //Registration
 
-import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
 import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
