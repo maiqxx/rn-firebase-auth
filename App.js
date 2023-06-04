@@ -36,7 +36,6 @@ function App() {
             headerTitle: () => <Header name="React Native Authentication" />,
             headerStyle: {
               height: 100,
-
               backgroundColor: '#788eec',
               shadowColor: '#000',
               elevation: 25,

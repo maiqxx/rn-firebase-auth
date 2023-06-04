@@ -34,35 +34,14 @@ const Update = ({route}) => {
               onChangeText(heading);
               setCreatedAt(createdAt.toDate());
             } else {
-                Alert.alert('Todo does not exist!');
-              console.log('Todo does not exist!');
+                Alert.alert('Task does not exist!');
+              console.log('Task does not exist!');
             }
           })
           .catch((error) => {
             console.log(error);
           });
       }, []);
-
-        //fetch or read the data from firestore
-        // useEffect(() => {
-        //     todoRef
-        //     .orderBy('createdAt', 'desc')
-        //     .onSnapshot(
-        //         querySnapshot => {
-        //             const todos = []
-        //             querySnapshot.forEach(doc => {   
-        //                 const {heading} = doc.data()
-        //                 todos.push({
-        //                     id: doc.id,
-        //                     heading,
-        //                 })
-                        
-        //             })
-        //             setTodos(todos)
-        //         }    
-        //     )
-        // }, [])
-
 
     return(
         <View style={StyleSheet.container}>

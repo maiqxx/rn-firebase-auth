@@ -114,43 +114,6 @@ const Registration = () => {
         }
       };
       
-    
-    // registerUser = async(email, password, firstName, lastName, address, mobile) => {
-    //     await firebase.auth().createUserWithEmailAndPassword(email.trim(), password)
-    //     .then(() => {
-    //         firebase.auth().currentUser.sendEmailVerification({
-    //             handleCodeInApp: true,
-    //             url:'https://test-projects-73e32.firebaseapp.com',
-    //         }).then(() => {
-    //             Alert.alert('Please check your email inbox or spam for verification')
-    //         }).catch((error) => {
-    //             Alert.alert(error.message)
-    //             console.log("First catch " + error.message)
-    //         }).then(() => {
-    //             firebase.firestore().collection('users')
-    //             .doc(firebase.auth().currentUser.uid)
-    //             .set({
-    //                 firstName,
-    //                 lastName,
-    //                 email,
-    //                 mobile,
-    //                 address,
-    //             })
-    //         }).catch((error) => {
-    //             Alert.alert(error.message)
-    //             console.log("Second catch " + error.message)
-    //             })
-    //         })
-    //         .catch((error) => {
-    //             Alert.alert(error.message);
-    //             console.log("Third catch " + error.message)
-    //         })
-    //     }
-
-
-
-        
-        
         return(
             <Formik initialValues={{
                 firstName: '',
@@ -320,12 +283,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        // paddingTop: 20,
-        // paddingBottom: 10,
-        // textAlign: 'center',
-        // fontSize: 20,
-        // borderBottomWidth: 1,
-        // borderBottomColor: '#000',
     },
     button:{
         padding: 10,
