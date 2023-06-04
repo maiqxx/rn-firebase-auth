@@ -139,6 +139,38 @@ const Dashboard = () => {
               { cancelable: false }
             );
           };
+
+          //check if the task already exists
+          const addingTodo = () => {
+            if (addData && addData.length > 0) {
+              // Check if the task already exists
+              const existingTask = todos.find(todo => todo.heading.toLowerCase() === addData.toLowerCase());
+          
+              if (existingTask) {
+                // Task already exists, show alert with options
+                Alert.alert(
+                  'Task Already Exists',
+                  'You have already listed this task. Do you want to add it anyway?',
+                  [
+                    {
+                      text: 'Cancel',
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Add Anyway',
+                      onPress: () => {
+                        addTodo();
+                      },
+                    },
+                  ],
+                  { cancelable: false }
+                );
+              } else {
+                addTodo();
+              }
+            }
+          };
+          
     
         //add a todo
         const addTodo = () => {
@@ -154,6 +186,7 @@ const Dashboard = () => {
                     .then(() => {
                         setAddData('')
                         Keyboard.dismiss() //remove the keyboard
+                        Alert.alert('Task added!')
                     })
                     .catch((error) => {
                         alert(error)
@@ -209,7 +242,7 @@ const Dashboard = () => {
                     value={addData}
                     //underlineColorAndroid='none'
                 />
-                <TouchableOpacity style={styles.button} onPress={addTodo}>
+                <TouchableOpacity style={styles.button} onPress={addingTodo}>
                     <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </View>
