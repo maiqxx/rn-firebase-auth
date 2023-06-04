@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {firebase} from '../config';
+import { useNavigation } from '@react-navigation/native';
 
 
 const SignupSchema = Yup.object().shape({
@@ -59,6 +60,7 @@ const SignupSchema = Yup.object().shape({
   });
 
 const Registration = () => {
+    const navigation = useNavigation();
 
     //can remove these unused hooks to clean up the code
     const [firstName, setFirstName] = useState('');
@@ -278,6 +280,22 @@ const Registration = () => {
                         <Text style={{fontWeight:'bold', fontSize: 18, color:'#fff'}}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
+
+                <View style={styles.txtContainer}>
+                <Text style={{fontSize:16, color: 'black', marginTop:20}}>
+                    Already have an account? 
+                </Text>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Login')}
+                    style={{marginTop: 20}}
+                >
+                    <Text style={{fontSize:16, color: 'blue'}}>
+                        Log In
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
             </View>
             )}
             </Formik>
@@ -327,6 +345,11 @@ const styles = StyleSheet.create({
     },
     inputWrapper:{
         marginBottom: 15,
+    },
+    txtContainer:{
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 
 })

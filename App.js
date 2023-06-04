@@ -31,7 +31,7 @@ function App() {
   if (!user) {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Log In" component={Login}
+        <Stack.Screen name="Login" component={Login}
           options={{
             headerTitle: () => <Header name="React Native Authentication" />,
             headerStyle: {
