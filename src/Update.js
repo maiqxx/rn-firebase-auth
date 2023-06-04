@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Pressable, Alert} from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Alert, Image} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { firebase } from '../config';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,7 @@ const Update = ({route}) => {
     const todoRef = firebase.firestore().collection('todos');
     const [textHeading, onChangeText] = useState(route.params.item.name);
     const navigation = useNavigation();
-    const [todos, setTodos] = useState('');
+    const [createdAt, setCreatedAt] = useState('');
 
     const updateTodo = () => {
         if (textHeading && textHeading.length > 0){
@@ -30,9 +30,11 @@ const Update = ({route}) => {
           .get()
           .then((snapshot) => {
             if (snapshot.exists) {
-              const { heading } = snapshot.data();
+              const { heading, createdAt } = snapshot.data();
               onChangeText(heading);
+              setCreatedAt(createdAt.toDate());
             } else {
+                Alert.alert('Todo does not exist!');
               console.log('Todo does not exist!');
             }
           })
@@ -64,6 +66,9 @@ const Update = ({route}) => {
 
     return(
         <View style={StyleSheet.container}>
+        
+            <Image source={require('../assets/sticky-notes.png')} style={styles.img}/>
+
             <TextInput
                 style={styles.textField}
                 onChangeText={onChangeText}
@@ -72,6 +77,10 @@ const Update = ({route}) => {
                 numberOfLines={5}
                 placeholder="Edit task"
             />
+
+            <Text style={styles.createdAtText}>
+                Created at: {createdAt.toString()}
+            </Text>
 
             <Pressable
                 style={styles.buttonUpdate}
@@ -92,7 +101,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     textField: {
-        marginTop: 150,
+        marginTop: 40,
         marginBottom: 10,
         padding: 10,
         fontSize: 20,
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top',
     },
     buttonUpdate:{
-        marginTop: 25,
+        marginTop: 15,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
@@ -119,5 +128,24 @@ const styles = StyleSheet.create({
     buttonText:{
         fontSize: 18,
         color: '#fff'
+    },
+    createdAtText: {
+        fontSize: 16,
+        marginBottom: 10,
+        color: 'gray',
+        alignSelf: 'center',
+        multiline: true,
+        width: 200,
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    img: {
+        marginTop: 40,
+        alignSelf: 'center',
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 10},
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+        elevation: 10,
     }
 });
