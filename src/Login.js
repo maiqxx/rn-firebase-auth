@@ -19,7 +19,7 @@ const Login = () => {
 
     return(
         <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <Image source={require('../assets/log-in.png')} style={styles.loginImg}/>
+            <Image source={require('../assets/log-in.png')} style={styles.loginImg}/>
             <Text style={{fontWeight: 'bold', fontSize: 26}}>
                 Log In
             </Text>

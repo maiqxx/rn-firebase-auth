@@ -245,7 +245,7 @@ export default Dashboard
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: '#e5e5e5',
+        backgroundColor: '#fff',
         padding: 15,
         borderRadius: 15,
         margin: 5,
@@ -255,6 +255,7 @@ const styles = StyleSheet.create({
         paddingVertical: 24,
         paddingHorizontal: 0,
         justifyContent: "space-between",
+        opacity: 0.9,
     },
     button:{
         padding: 10,

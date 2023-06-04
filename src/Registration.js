@@ -1,6 +1,6 @@
 //Registration
 
-import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
+import {Alert, View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, Image} from 'react-native';
 import React, {useState} from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -171,8 +171,9 @@ const Registration = () => {
                 isValid,
                 handleSubmit,  
             }) =>(
-            <View style={styles.container}>
-                <View>
+            <KeyboardAvoidingView style={styles.container}>
+                <View style={styles.container2}>
+                
                     <View style={styles.inputWrapper}>
                         <TextInput
                             style={styles.textInput}
@@ -251,19 +252,19 @@ const Registration = () => {
                     </View>
 
                     <View style={styles.inputWrapper}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Password"
-                        value={values.password}
-                        onChangeText={handleChange('password')}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onBlur={() => setFieldTouched('password')}
-                    />
-                    {touched.password && errors.password && (
-                        <Text style={styles.errorTxt}>{errors.password}</Text>
-                    )}
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Password"
+                            value={values.password}
+                            onChangeText={handleChange('password')}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            onBlur={() => setFieldTouched('password')}
+                        />
+                        {touched.password && errors.password && (
+                            <Text style={styles.errorTxt}>{errors.password}</Text>
+                        )}
                     </View>
 
                     <TouchableOpacity
@@ -282,21 +283,22 @@ const Registration = () => {
                 </View>
 
                 <View style={styles.txtContainer}>
-                <Text style={{fontSize:16, color: 'black', marginTop:20}}>
-                    Already have an account? 
-                </Text>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Login')}
-                    style={{marginTop: 20}}
-                >
-                    <Text style={{fontSize:16, color: 'blue'}}>
-                        Log In
+                    <Text style={{fontSize:16, color: 'black', marginTop:20}}>
+                        Already have an account? 
                     </Text>
-                </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Login')}
+                        style={{marginTop: 20}}
+                    >
+                        <Text style={{fontSize:16, color: 'blue'}}>
+                            Log In
+                        </Text>
+                    </TouchableOpacity>
             </View>
 
-            </View>
+            <Image source={require('../assets/wave.png')} style={styles.wave}/>
+            </KeyboardAvoidingView>
             )}
             </Formik>
         )
@@ -310,7 +312,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1,
         alignItems: 'center',
-        marginTop: 40,
+        backgroundColor: '#fff',
     },
     textInput:{
         width: 280,
@@ -335,7 +337,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 50, 
-        marginTop: 30,
+        marginTop: 10,
         borderRadius: 50,
         // backgroundColor: '#f4511e',
     },
@@ -350,6 +352,19 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    wave:{
+        width: 900,
+        height: 380,
+        position: 'absolute',
+        bottom: -200,
+        left: -400,
+        alignSelf: 'center',
+        paddingLeft: 100,
+        opacity: 0.5,
+    },
+    container2:{
+        marginTop: 50,
     },
 
 })
