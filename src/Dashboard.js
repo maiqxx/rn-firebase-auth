@@ -256,6 +256,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         justifyContent: "space-between",
         opacity: 0.9,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 8,
+        },
+        shadowOpacity: 0.18,
     },
     button:{
         padding: 10,

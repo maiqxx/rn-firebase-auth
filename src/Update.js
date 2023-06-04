@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: 'lightgray',
         borderRadius: 5,
-        width: 350,
+        width: 300,
         alignSelf: 'center',
         textAlignVertical: 'top',
     },
