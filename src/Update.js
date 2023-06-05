@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     textField: {
-        marginTop: 40,
+        marginTop: 20,
         marginBottom: 10,
         padding: 10,
         fontSize: 20,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     img: {
-        marginTop: 40,
+        marginTop: 20,
         alignSelf: 'center',
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 10},
