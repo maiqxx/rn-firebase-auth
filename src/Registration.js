@@ -248,7 +248,7 @@ const Registration = () => {
                 <View style={styles.txtContainer}>
                     <Text style={{fontSize:16, color: 'black', marginTop:20}}>
                         Already have an account? 
-                    </Text>
+                    </Text> 
 
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Login')}
@@ -258,9 +258,9 @@ const Registration = () => {
                             Log In
                         </Text>
                     </TouchableOpacity>
-            </View>
+                </View>
 
-            <Image source={require('../assets/wave.png')} style={styles.wave}/>
+                <Image source={require('../assets/wave.png')} style={styles.wave}/>
             </KeyboardAvoidingView>
             )}
             </Formik>

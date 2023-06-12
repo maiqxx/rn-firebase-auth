@@ -49,7 +49,7 @@ const Login = () => {
             <View style={styles.txtContainer}>
                 <Text style={{fontSize:16, color: 'black', marginTop:20}}>
                     Don't have an account? 
-                </Text>
+                </Text> 
 
                 <TouchableOpacity
                     onPress={() => navigation.navigate('Registration')}
